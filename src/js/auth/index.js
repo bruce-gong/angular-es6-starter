@@ -5,6 +5,7 @@ let authModule = angular.module('app.auth', []);
 
 // Include our UI-Router config settings
 import AuthConfig from './auth.config';
+authModule.config(AuthConfig);
 
 // Controllers
 import AuthCtrl from './auth.controller';
