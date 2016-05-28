@@ -10,9 +10,9 @@ export default class Profile {
   // Retrieve a user's profile
   get(username) {
     return this._$http({
-      url: this._AppConstants.api + './profiles/' + username,
+      url: this._AppConstants.api + '/profiles/' + username,
       method: 'GET'
     }).then((res) => res.data.profile);
   }
-  
+
 }
