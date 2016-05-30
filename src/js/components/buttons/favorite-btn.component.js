@@ -43,7 +43,7 @@ let FavoriteBtn = {
   bindings: {
     article: '='
   },
-  tranclude: true,
+  transclude: true,
   controller: FavoriteBtnCtrl,
   templateUrl: 'components/buttons/favorite-btn.html'
 };
