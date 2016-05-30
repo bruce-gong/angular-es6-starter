@@ -29,6 +29,30 @@ export default class Articles {
     return deferred.promise;
   }
 
+  // Delete an article
+  destroy(slug) {
+    return this._$http({
+      url: this._AppConstants.api + '/articles/' + slug,
+      method: 'DELETE'
+    });
+  }
+
+  // Favorite an article
+  favorite(slug) {
+    return this._$http({
+      url: this._AppConstants.api + '/articles/' + slug + '/favorite',
+      method: 'POST'
+    });
+  }
+
+  // Unfavorite an article
+  unfavorite(slug) {
+    return this._$http({
+      url: this._AppConstants.api + '/articles/' + slug + '/favorite',
+      method: 'DELETE'
+    });
+  }
+
   // Creates or updates an article
   save(article) {
     let request = {};
