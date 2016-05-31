@@ -1,10 +1,14 @@
 class ArticleListCtrl {
-  constructor(Articles) {
+  constructor(Articles, $scope) {
     'ngInject';
 
     this._Articles = Articles;
 
     this.setListTo(this.listConfig);
+
+    $scope.$on('setPageTo', (ev, pageNumber) => {
+      this.setPageTo(pageNumber);
+    });
 
   }
 
@@ -14,6 +18,12 @@ class ArticleListCtrl {
 
     // Set listConfig to the new list's config
     this.listConfig = newList;
+
+    this.runQuery();
+  }
+
+  setPageTo(pageNumber) {
+    this.listConfig.currentPage = pageNumber;
 
     this.runQuery();
   }
@@ -31,6 +41,14 @@ class ArticleListCtrl {
     // Set the limit filter from the component's attribute
     queryConfig.filters.limit = this.limit;
 
+    // If there is no page set, set page as 1
+    if (!this.listConfig.currentPage) {
+      this.listConfig.currentPage = 1;
+    }
+
+    // Add the offset filter
+    queryConfig.filters.offset = (this.limit * (this.listConfig.currentPage - 1));
+
     // Run the query
     this._Articles
       .query(queryConfig)
@@ -40,6 +58,8 @@ class ArticleListCtrl {
 
           // Update list and total pags
           this.list = res.articles;
+
+          this.listConfig.totalPages = Math.ceil(res.articlesCount / this.limit);
         }
       );
   }
